@@ -1,17 +1,16 @@
-let getUserName = '';               
+let getUserName = '';             
 let randomNumber = 0;               
 let anotherRandomNumber = 0;        
-let bingoCard = [];                 
-let repeatNumber = new Set();       
-let cardLength = 15;                
-let turn = 0;                       
-let score = 50;                     
-let totalScore = [];                
-let validImput = false;             
-let checkLine = false;              
+let bingoCard = [];                
+let repeatNumber = new Set();      
+let cardLength = 15;               
+let turn = 0;                      
+let score = 50;                    
+let totalScore = [];               
+let validImput = false;            
+let checkLine = false;             
 let letsContinue = true;           
 let ranking = [];                   
-
 
 
 const getGreetings = () => {
@@ -30,13 +29,13 @@ const getGreetings = () => {
 };
 
 
-const createCard = () => { 
+const createCard = () => {
     generateCard();
     alert('¡Cartón generado!')
 };
 
 
-const getRules = () => { 
+const getRules = () => {
     console.log(`                      📝   REGLAS   📝                       `);
     console.log('---------------------------------------------------------------');
     console.log('Empezamos con 100 Puntos. Por cada cartón sin anotar, se restarán 3 puntos por turno y por cada número acertado, sumará 10 puntos.')
@@ -132,22 +131,32 @@ const playBingo = () => {
         let anotherCard = prompt(`¿Está la bola |${anotherRandomNumber}| en el cartón? Indique (S) de SI para tachar con una 'X', (N) de NO para una nueva tirada o EXIT para salir`);
         switch(anotherCard) {
             case 'S':
-                getScore();
-                newCard();
-                playBingo();
-                validImput = true;
+                if (!bingoCard.includes(anotherRandomNumber)) {
+                    alert('Revise su cartón otra vez...');
+                    validImput = false;
+                } else {
+                    getScore();
+                    newCard();
+                    playBingo();
+                    validImput = true;
+                };
                 break
             case 'N':
-                getScore();
-                playBingo();
-                validImput = true;
+                if (bingoCard.includes(anotherRandomNumber)) {
+                    alert('Revise su cartón otra vez...');
+                    validImput = false;
+                } else {
+                    getScore();
+                    playBingo();
+                    validImput = true;
+                };
                 break
             case 'EXIT':
                 isExit();
                 validImput = true;
                 break
             default:
-                alert('Error 404: Not Found! Por favor, introduzca YES, NO o Exit');
+                alert('Error 404: Not Found! Por favor, introduzca S, N o EXIT');
         };
     };
 };
@@ -163,10 +172,7 @@ const newCard = () => {
 const getTurns = () => {
     turn += 1;
     if (turn === 40) { 
-        alert('Lo sentimos, pero ha alcanzado el máximo de turnos posibles... ¡GAME OVER!');
-        console.log('---------------------------------------------------------------');
-        console.log(`Usuario: ${getUserName} || Turnos: ${turn} || Puntuación total: ${totalScore.slice(-1)}`);
-        console.log('---------------------------------------------------------------');
+        alert('Lo sentimos, pero ha alcanzado el máximo de turnos posibles...       ¡GAME OVER!');
         isExit();
     };
 };
@@ -186,15 +192,15 @@ const stateGeneralCondition = (currentValue) => currentValue === 'X';
 const getLine = () => {
     if (checkLine === false) {
         if (bingoCard.slice(0, 5).every(stateGeneralCondition)) {
-            score += 20;
+            score += 20
             singLine();
             checkLine = true;
         } else if (bingoCard.slice(5, 10).every(stateGeneralCondition)) {
-            score += 20;
+            score += 20
             singLine();
             checkLine = true;
         } else if (bingoCard.slice(10, 15).every(stateGeneralCondition)) {
-            score += 20;
+            score += 20
             singLine();
             checkLine = true;
         };
@@ -203,7 +209,7 @@ const getLine = () => {
 
 
 const singLine = () => {
-    alert('¡LINEA! + 20 PUNTOS');
+    alert('¡LINEA! + 30 PUNTOS');
 };
 
 
