@@ -171,10 +171,6 @@ const newCard = () => {
 
 const getTurns = () => {
     turn += 1;
-    if (turn === 40) { 
-        alert('Lo sentimos, pero ha alcanzado el máximo de turnos posibles...       ¡GAME OVER!');
-        isExit();
-    };
 };
 
 
