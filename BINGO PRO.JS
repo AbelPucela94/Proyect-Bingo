@@ -128,7 +128,7 @@ const playBingo = () => {
     console.log('---------------------------------------------------------------');
     getAnotherRandomNumber();
     
-    while (!validImput) {
+    while (!validImput && letsContinue) {
         
         alert(`¡Ha salido la bola número ${anotherRandomNumber}!`)
 
