@@ -1,16 +1,16 @@
-let getUserName = '';             
-let randomNumber = 0;               
-let anotherRandomNumber = 0;        
+let getUserName = '';              
+let randomNumber = 0;             
+let anotherRandomNumber = 0;       
 let bingoCard = [];                
-let repeatNumber = [];      
+let repeatNumber = [];             
 let cardLength = 15;               
 let turn = 0;                      
 let score = 50;                    
-let totalScore = [];               
-let validImput = false;            
-let checkLine = false;             
-let letsContinue = true;           
-let ranking = [];                   
+let totalScore = [];                
+let validImput = false;             
+let checkLine = false;              
+let letsContinue = true;
+let ranking = [];
 
 
 const getGreetings = () => {
@@ -103,7 +103,7 @@ const generateCard = () => {
 
 
 const removeNumbers = () => {
-    bingoCard.splice(0, bingoCard.length);
+    bingoCard.splice(0, bingoCard.length); 
 };
 
 
@@ -129,18 +129,36 @@ const playBingo = () => {
     getAnotherRandomNumber();
     
     while (!validImput && letsContinue) {
-        
-        alert(`¡Ha salido la bola número ${anotherRandomNumber}!`)
-
-        if (bingoCard.includes(anotherRandomNumber)) {
-            getScore();
-            newCard();
-            playBingo();
-        } else {
-            getScore();
-            playBingo();
+        let anotherCard = prompt(`¿Está la bola |${anotherRandomNumber}| en el cartón? Indique (S) de SI para tachar con una 'X', (N) de NO para una nueva tirada o EXIT para salir`);
+        switch(anotherCard) {
+            case 'S':
+                if (!bingoCard.includes(anotherRandomNumber)) {
+                    alert('Revise su cartón otra vez...');
+                    validImput = false;
+                } else {
+                    getScore();
+                    newCard();
+                    playBingo();
+                    validImput = true;
+                };
+                break
+            case 'N':
+                if (bingoCard.includes(anotherRandomNumber)) {
+                    alert('Revise su cartón otra vez...');
+                    validImput = false;
+                } else {
+                    getScore();
+                    playBingo();
+                    validImput = true;
+                };
+                break
+            case 'EXIT':
+                isExit();
+                validImput = true;
+                break
+            default:
+                alert('Error 404: Not Found! Por favor, introduzca S, N o EXIT');
         };
-        validImput = true;
     };
 };
 
